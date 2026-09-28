@@ -166,18 +166,18 @@ export default function HeroSection() {
                   opacity = 1;
                   zIndex = 30;
                 } else if (diff === 1) {
-                  // Right (Next)
-                  transformClass = "translate-x-[35%] lg:translate-x-[50%] scale-[0.65] blur-[2px]";
-                  opacity = 0.35;
+                  // Right (Next) - Hidden but positioned for slide in
+                  transformClass = "translate-x-[15%] scale-100 blur-none";
+                  opacity = 0;
                   zIndex = 20;
                 } else if (diff === EQUIPMENT_TYPES.length - 1) {
-                  // Left (Prev)
-                  transformClass = "-translate-x-[35%] lg:-translate-x-[50%] scale-[0.65] blur-[2px]";
-                  opacity = 0.35;
+                  // Left (Prev) - Hidden but positioned for slide out
+                  transformClass = "-translate-x-[15%] scale-100 blur-none";
+                  opacity = 0;
                   zIndex = 20;
                 } else {
                   // Back (Hidden)
-                  transformClass = "translate-x-0 scale-50 blur-md";
+                  transformClass = "translate-x-0 scale-95 blur-none";
                   opacity = 0;
                   zIndex = 10;
                 }

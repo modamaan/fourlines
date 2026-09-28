@@ -74,7 +74,7 @@ export default function AboutSection() {
       <div className="flex flex-col lg:flex-row w-full lg:min-h-[600px] xl:min-h-[700px] relative">
 
         {/* Light floor glow extending leftwards from the image */}
-        <div 
+        <div
           className="absolute bottom-0 left-0 w-[45%] h-[35%] pointer-events-none z-0"
           style={{
             background: 'linear-gradient(to left, rgba(170, 195, 225, 0.95) 0%, rgba(170, 195, 225, 0) 100%)',
@@ -89,6 +89,24 @@ export default function AboutSection() {
           className="w-full lg:w-[32%] text-white p-8 sm:p-12 lg:p-16 flex flex-col justify-center relative z-20 bg-transparent"
         >
           <div className="space-y-6 lg:space-y-10 max-w-md mx-auto lg:mx-0">
+            
+            {/* Section Logo */}
+            <div className="flex items-center gap-2 lg:gap-3 pb-4">
+              <div className="relative w-12 h-12 lg:w-16 lg:h-16 shrink-0">
+                <Image 
+                  src="/bg_fourline_icon.png" 
+                  alt="Four Lines Logo" 
+                  fill 
+                  sizes="(max-width: 1024px) 48px, 64px"
+                  className="object-contain object-left"
+                />
+              </div>
+              <div className="font-primary font-bold text-xl lg:text-2xl tracking-tight uppercase flex flex-col leading-none pt-1">
+                <span className="text-white">FOUR LINES</span>
+                <span className="font-secondary text-[8px] lg:text-[9px] text-gray-300 font-bold tracking-[0.3em] mt-1 lg:mt-1.5">INDUSTRIES</span>
+              </div>
+            </div>
+
             <div>
               <p className="font-secondary text-[10px] sm:text-xs font-bold tracking-[0.2em] text-blue-200 uppercase leading-relaxed mb-4">
                 Engineering Industrial <br /> Solutions
@@ -144,10 +162,10 @@ export default function AboutSection() {
       {/* BOTTOM BLOCK */}
       <div
         ref={bottomPaneRef}
-        className="w-full relative overflow-hidden bg-transparent text-white px-8 py-16 lg:px-16 lg:py-20"
+        className="w-full relative overflow-hidden bg-transparent text-white px-8 py-12 lg:px-16 lg:py-12"
       >
         {/* Background Image constrained to right side to reduce size */}
-        <div className="absolute right-0 bottom-60 w-[85%] lg:w-[55%] h-[75%] lg:h-[85%] z-0">
+        <div className="absolute right-0 bottom-50 w-[85%] lg:w-[45%] h-[75%] lg:h-[85%] z-0">
           <Image
             src="/images/background_2.png"
             alt="Blueprint Background"
@@ -157,10 +175,10 @@ export default function AboutSection() {
           />
         </div>
 
-        <div className="max-w-[1400px] mx-auto relative z-10 flex flex-col justify-between min-h-[400px]">
+        <div className="max-w-[1400px] mx-auto relative z-10 flex flex-col justify-between">
 
           {/* Top Section of Bottom Block */}
-          <div className="max-w-xl space-y-6 stagger-item mb-20 lg:mb-32">
+          <div className="max-w-xl space-y-6 stagger-item mb-12 lg:mb-16">
             <h2 className="font-secondary text-2xl md:text-3xl lg:text-[32px] font-bold uppercase leading-[1.2] tracking-wide">
               Engineering <br />
               A Stronger Tomorrow

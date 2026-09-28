@@ -46,7 +46,7 @@ export default function Navbar() {
     <nav 
       className={`fixed w-full z-50 transition-all duration-300 text-white ${
         scrolled || isOpen 
-          ? "bg-[#030b17]/95 backdrop-blur-md border-b border-white/10 py-3 shadow-2xl" 
+          ? "bg-[#030b17]/50 backdrop-blur-xl border-b border-white/10 py-3 shadow-2xl" 
           : "bg-transparent py-5"
       }`}
     >
