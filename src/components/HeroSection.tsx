@@ -25,7 +25,7 @@ const EQUIPMENT_TYPES = [
     subtitle: "HIGH-CAPACITY TRANSPORTATION SYSTEMS",
     description: "Reliable and safe transportation solutions built for demanding logistics.",
     image: "/images/equipment_original.png",
-    imageClassName: "scale-100",
+    imageClassName: "scale-80",
   },
   {
     title: "ENCLOSURES",
