@@ -14,8 +14,8 @@ interface Division {
   products: string[];
   stats: { value: string; label: string }[];
   accentColor: string;
-  bgColor: string;
   image: string;
+  expandedImage?: string;
   imageScale: string;
 }
 
@@ -33,8 +33,8 @@ const DIVISIONS: Division[] = [
       { value: "CUSTOM", label: "SOLUTIONS" },
     ],
     accentColor: "#3b82f6",
-    bgColor: "#0d2247",
-    image: "/images/mobility_1.png",
+    image: "/images/mobility.png",
+    expandedImage: "/images/mobility_bg.png",
     imageScale: "scale-100",
   },
   {
@@ -54,9 +54,9 @@ const DIVISIONS: Division[] = [
       { value: "CUSTOM", label: "SOLUTIONS" },
     ],
     accentColor: "#22c55e",
-    bgColor: "#052e16",
-    image: "/images/storage1.png",
-    imageScale: "scale-90",
+    image: "/images/storage_v.png",
+    expandedImage: "/images/storage_bg.png",
+    imageScale: "scale-100",
   },
   {
     id: 2,
@@ -74,9 +74,9 @@ const DIVISIONS: Division[] = [
       { value: "GLOBAL", label: "DELIVERY" },
     ],
     accentColor: "#9ca3af",
-    bgColor: "#111827",
-    image: "/images/enclosure.png",
-    imageScale: "scale-95",
+    image: "/images/enclosure_v.png",
+    expandedImage: "/images/enclosure_bg.png",
+    imageScale: "scale-100",
   },
   {
     id: 3,
@@ -94,18 +94,18 @@ const DIVISIONS: Division[] = [
       { value: "FULL", label: "LIFECYCLE" },
     ],
     accentColor: "#eab308",
-    bgColor: "#1c1002",
     image: "/images/equipment_3_new.png",
     imageScale: "scale-100",
   },
 ];
 
 export default function DivisionsSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // GSAP staggered fade-in for desktop expanded content
   useEffect(() => {
+    if (activeIndex === null) return;
     const activeContent = contentRefs.current[activeIndex];
     if (!activeContent) return;
     const targets = activeContent.querySelectorAll(".anim-item");
@@ -117,7 +117,9 @@ export default function DivisionsSection() {
     );
   }, [activeIndex]);
 
-  const handleSelect = (idx: number) => setActiveIndex(idx);
+  const handleSelect = (idx: number) => {
+    setActiveIndex(prev => (prev === idx ? null : idx));
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent, idx: number) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -136,8 +138,7 @@ export default function DivisionsSection() {
           return (
             <div
               key={division.id}
-              style={{ backgroundColor: division.bgColor }}
-              className="overflow-hidden"
+              className="overflow-hidden border-b border-white/5 bg-[#050b14]"
             >
               {/* Accordion header */}
               <div
@@ -152,14 +153,12 @@ export default function DivisionsSection() {
               >
                 <div className="flex items-center gap-4">
                   <div
-                    className="w-[3px] h-10 rounded-full flex-shrink-0"
-                    style={{ backgroundColor: division.accentColor }}
+                    className="w-[3px] h-10 rounded-full flex-shrink-0 bg-white"
                     aria-hidden="true"
                   />
                   <div>
                     <span
-                      className="font-secondary text-[9px] font-bold tracking-[0.3em] uppercase block"
-                      style={{ color: division.accentColor }}
+                      className="font-secondary text-[9px] font-bold tracking-[0.3em] uppercase block text-white"
                     >
                       {division.number}
                     </span>
@@ -188,17 +187,14 @@ export default function DivisionsSection() {
                 <div className="px-6 pb-8 space-y-6">
                   <div className="relative w-full h-48 sm:h-64">
                     <Image
-                      src={division.image}
+                      src={division.expandedImage || division.image}
                       alt={`${division.name} equipment`}
                       fill
-                      className={`object-contain object-center mix-blend-screen ${division.imageScale}`}
+                      className={division.expandedImage ? "object-cover object-center" : `object-contain object-center ${division.imageScale}`}
                       sizes="(max-width: 1024px) 100vw, 0px"
                     />
                   </div>
-                  <p
-                    className="font-secondary text-[10px] font-bold tracking-[0.2em] uppercase"
-                    style={{ color: division.accentColor }}
-                  >
+                  <p className="font-secondary text-[10px] font-bold tracking-[0.2em] uppercase text-white">
                     {division.eyebrow}
                   </p>
                   <p className="font-secondary text-sm text-white/75 leading-snug">
@@ -207,7 +203,7 @@ export default function DivisionsSection() {
                   <div className="flex items-center gap-6 pt-4 border-t border-white/10">
                     {division.stats.map((stat) => (
                       <div key={stat.label} className="space-y-1">
-                        <p className="font-primary text-lg font-black" style={{ color: division.accentColor }}>
+                        <p className="font-primary text-lg font-black text-white">
                           {stat.value}
                         </p>
                         <p className="font-secondary text-[8px] font-bold tracking-[0.2em] uppercase text-white/40">
@@ -224,13 +220,11 @@ export default function DivisionsSection() {
                     ))}
                   </div>
                   <button
-                    className="group flex items-center gap-3"
-                    style={{ color: division.accentColor }}
+                    className="group flex items-center gap-3 text-white"
                     aria-label={`Explore ${division.name} division`}
                   >
                     <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center border-2 group-hover:scale-110 transition-transform"
-                      style={{ borderColor: division.accentColor }}
+                      className="w-8 h-8 rounded-full flex items-center justify-center border-2 border-white group-hover:scale-110 transition-transform"
                       aria-hidden="true"
                     >
                       <ArrowRight size={14} />
@@ -251,6 +245,7 @@ export default function DivisionsSection() {
       <div
         className="hidden lg:flex overflow-hidden"
         style={{ height: "clamp(500px, 90vh, 880px)" }}
+        onMouseLeave={() => setActiveIndex(null)}
       >
         {DIVISIONS.map((division, idx) => {
           const isActive = idx === activeIndex;
@@ -263,51 +258,76 @@ export default function DivisionsSection() {
               aria-controls={`division-desktop-panel-${idx}`}
               onClick={() => handleSelect(idx)}
               onKeyDown={(e) => handleKeyDown(e, idx)}
-              className="relative flex-shrink-0 overflow-hidden cursor-pointer transition-all duration-[700ms] ease-[cubic-bezier(0.77,0,0.175,1)] focus:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-white/40"
+              onMouseEnter={() => setActiveIndex(idx)}
+              className="relative flex-shrink-0 overflow-hidden cursor-pointer transition-all duration-[700ms] ease-[cubic-bezier(0.77,0,0.175,1)] focus:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-white/40 bg-[#050b14] border-r border-white/5 last:border-r-0"
               style={{
                 flex: isActive ? "5 0 0%" : "1 0 0%",
-                backgroundColor: division.bgColor,
               }}
             >
-              {/* Top accent bar */}
-              <div
-                className="absolute top-0 left-0 right-0 h-[3px] z-20 transition-opacity duration-500"
-                style={{ backgroundColor: division.accentColor, opacity: isActive ? 1 : 0.35 }}
-                aria-hidden="true"
-              />
+
 
               {/* Background image collapsed preview */}
               <div
-                className={`absolute inset-0 z-0 transition-opacity duration-700 pointer-events-none ${isActive ? "opacity-0" : "opacity-20"}`}
+                className={`absolute inset-0 z-0 transition-opacity duration-700 pointer-events-none ${isActive ? "opacity-0" : "opacity-100"}`}
                 aria-hidden="true"
               >
                 <Image
                   src={division.image}
                   alt=""
                   fill
-                  className={`object-contain object-bottom mix-blend-screen ${division.imageScale}`}
+                  className="object-cover object-center"
                   sizes="20vw"
                 />
+                {/* Dark gradient from top to make text readable, fading out at the bottom */}
+                <div className="absolute inset-0 bg-gradient-to-b from-[#050b14]/90 via-[#050b14]/40 to-transparent pointer-events-none" />
               </div>
 
-              {/* Collapsed: vertical rotated title */}
+              {/* Collapsed: top-aligned text and vertical title */}
               <div
-                className={`absolute inset-0 z-10 flex flex-col justify-end pb-10 pl-4 gap-4 transition-opacity duration-300 ${isActive ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+                className={`absolute inset-0 z-10 flex flex-col items-start pt-10 pl-6 lg:pl-8 gap-8 transition-opacity duration-300 ${isActive ? "opacity-0 pointer-events-none" : "opacity-100"}`}
                 aria-hidden={isActive}
               >
-                <span
-                  className="font-secondary text-[9px] font-bold tracking-[0.3em] uppercase"
-                  style={{ color: division.accentColor }}
-                >
-                  {division.number}
-                </span>
+                <div className="space-y-4">
+                  <span
+                    className="font-secondary text-[11px] font-bold tracking-[0.2em] uppercase block text-white"
+                  >
+                    {division.number}
+                  </span>
+                  <div className="w-8 h-[1px] bg-white/40" />
+                  <p className="font-secondary text-[11px] text-white/80 max-w-[120px] leading-relaxed">
+                    {division.eyebrow}
+                  </p>
+                </div>
+
                 <div
-                  className="font-primary font-black text-sm lg:text-base uppercase leading-none text-white tracking-wide whitespace-nowrap"
+                  className="font-primary font-black text-3xl xl:text-4xl uppercase text-white/80 tracking-tighter"
                   style={{ writingMode: "vertical-rl", textOrientation: "mixed", transform: "rotate(180deg)" }}
                 >
                   {division.name}
                 </div>
+
+                <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white/60 hover:text-white hover:border-white transition-colors mt-auto mb-12">
+                  <ArrowRight size={16} />
+                </div>
               </div>
+
+              {/* Expanded Full Background (if available) */}
+              {division.expandedImage && (
+                <div
+                  className={`absolute inset-0 z-0 transition-opacity duration-700 pointer-events-none ${isActive ? "opacity-100" : "opacity-0"}`}
+                  aria-hidden="true"
+                >
+                  <Image
+                    src={division.expandedImage}
+                    alt=""
+                    fill
+                    className="object-cover object-center"
+                    sizes="100vw"
+                  />
+                  {/* Left-to-right gradient to ensure text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#050b14]/90 via-[#050b14]/60 to-transparent pointer-events-none" />
+                </div>
+              )}
 
               {/* Expanded content */}
               <div
@@ -321,8 +341,7 @@ export default function DivisionsSection() {
                   <div className="space-y-3">
                     <div className="anim-item flex items-center gap-3 min-w-0">
                       <span
-                        className="font-secondary text-[10px] font-bold tracking-[0.3em] uppercase flex-shrink-0"
-                        style={{ color: division.accentColor }}
+                        className="font-secondary text-[10px] font-bold tracking-[0.3em] uppercase flex-shrink-0 text-white"
                       >
                         {division.number}
                       </span>
@@ -341,14 +360,12 @@ export default function DivisionsSection() {
                       {division.tagline}
                     </p>
                     <button
-                      className="anim-item group flex items-center gap-2"
-                      style={{ color: division.accentColor }}
+                      className="anim-item group flex items-center gap-2 text-white"
                       onClick={(e) => e.stopPropagation()}
                       aria-label={`Explore ${division.name} division`}
                     >
                       <div
-                        className="w-7 h-7 rounded-full flex items-center justify-center border-2 group-hover:scale-110 transition-transform flex-shrink-0"
-                        style={{ borderColor: division.accentColor }}
+                        className="w-7 h-7 rounded-full flex items-center justify-center border-2 border-white group-hover:scale-110 transition-transform flex-shrink-0"
                         aria-hidden="true"
                       >
                         <ArrowRight size={15} />
@@ -360,7 +377,7 @@ export default function DivisionsSection() {
                     <div className="anim-item flex items-center gap-5 xl:gap-7 pt-3 border-t border-white/10">
                       {division.stats.map((stat) => (
                         <div key={stat.label} className="space-y-1 min-w-0">
-                          <p className="font-primary text-base font-black" style={{ color: division.accentColor }}>
+                          <p className="font-primary text-base font-black text-white">
                             {stat.value}
                           </p>
                           <p className="font-secondary text-[8px] font-bold tracking-[0.2em] uppercase text-white/40">
@@ -383,16 +400,18 @@ export default function DivisionsSection() {
 
                 {/* Right: product image */}
                 <div className="relative flex-1 h-full overflow-hidden min-w-0" aria-hidden="true">
-                  <Image
-                    src={division.image}
-                    alt={division.name}
-                    fill
-                    className={`object-contain object-center mix-blend-screen transition-transform duration-700 hover:scale-105 ${division.imageScale}`}
-                    sizes="48vw"
-                  />
+                  {!division.expandedImage && (
+                    <Image
+                      src={division.image}
+                      alt={division.name}
+                      fill
+                      className={`object-contain object-center transition-transform duration-700 hover:scale-105 ${division.imageScale}`}
+                      sizes="48vw"
+                    />
+                  )}
                   <div
-                    className="absolute bottom-4 right-6 font-primary font-black leading-none opacity-[0.08] select-none pointer-events-none"
-                    style={{ fontSize: "clamp(5rem, 12vw, 10rem)", color: division.accentColor }}
+                    className="absolute bottom-4 right-6 font-primary font-black leading-none opacity-[0.08] select-none pointer-events-none text-white"
+                    style={{ fontSize: "clamp(5rem, 12vw, 10rem)" }}
                     aria-hidden="true"
                   >
                     {division.number}
