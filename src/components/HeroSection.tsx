@@ -10,8 +10,8 @@ const EQUIPMENT_TYPES = [
     title: "STORAGE TANKS",
     subtitle: "INDUSTRIAL STORAGE SOLUTIONS FOR A BETTER FUTURE",
     description: "One of the leading manufacturers of custom-engineered storage systems and solutions in the UAE.",
-    image: "/images/equipment_1.png",
-    imageClassName: "scale-120", // Adjust size (e.g., scale-110, scale-90) or position (e.g., translate-y-4)
+    image: "/images/tank.png",
+    imageClassName: "scale-60", // Adjust size (e.g., scale-110, scale-90) or position (e.g., translate-y-4)
   },
   {
     title: "STORAGE TANKS",
@@ -111,31 +111,32 @@ export default function HeroSection() {
               <span className="truncate sm:whitespace-normal">POWERING A STRONGER TOMORROW</span>
             </div>
 
-            <div className="space-y-4 sm:space-y-6">
+            <div className="space-y-4 sm:space-y-5">
               <h1
                 ref={titleRef}
-                className="font-primary text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-white leading-none drop-shadow-2xl break-words"
+                className="font-primary text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white leading-none drop-shadow-2xl break-words"
               >
                 {EQUIPMENT_TYPES[currentIndex].title}
               </h1>
               <h2
                 ref={subtitleRef}
-                className="font-secondary text-lg sm:text-xl lg:text-3xl font-light text-gray-200 uppercase max-w-xl leading-snug pr-4"
+                className="font-secondary text-lg sm:text-xl lg:text-[26px] font-medium text-gray-200 uppercase max-w-lg leading-snug pr-4"
               >
                 {EQUIPMENT_TYPES[currentIndex].subtitle}
               </h2>
-              <div className="relative pl-4 border-l-2 border-blue-500/50 mt-6 sm:mt-8">
+              <div className="pt-2">
                 <p
                   ref={descRef}
-                  className="font-tertiary text-sm sm:text-base lg:text-lg text-gray-300 max-w-md leading-relaxed pr-4"
+                  className="font-tertiary text-sm sm:text-base lg:text-[15px] text-gray-300 max-w-sm leading-relaxed pr-4"
                 >
                   {EQUIPMENT_TYPES[currentIndex].description}
                 </p>
               </div>
+              <div className="w-[2px] h-6 bg-blue-500/50 mt-4" />
             </div>
 
             {/* Features Row */}
-            <div className="flex flex-wrap items-center gap-4 sm:gap-8 pt-6 sm:pt-10">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-8">
               <div className="flex items-center gap-2 sm:gap-3">
                 <Settings size={20} className="text-blue-400 shrink-0" />
                 <span className="font-tertiary text-[10px] sm:text-xs font-semibold text-gray-300 leading-tight">Reliable<br />Performance</span>

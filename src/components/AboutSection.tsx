@@ -89,14 +89,14 @@ export default function AboutSection() {
           className="w-full lg:w-[32%] text-white p-8 sm:p-12 lg:p-16 flex flex-col justify-center relative z-20 bg-transparent"
         >
           <div className="space-y-6 lg:space-y-10 max-w-md mx-auto lg:mx-0">
-            
+
             {/* Section Logo */}
             <div className="flex items-center gap-2 lg:gap-3 pb-4">
               <div className="relative w-12 h-12 lg:w-16 lg:h-16 shrink-0">
-                <Image 
-                  src="/bg_fourline_icon.png" 
-                  alt="Four Lines Logo" 
-                  fill 
+                <Image
+                  src="/bg_fourline_icon.png"
+                  alt="Four Lines Logo"
+                  fill
                   sizes="(max-width: 1024px) 48px, 64px"
                   className="object-contain object-left"
                 />
