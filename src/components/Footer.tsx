@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight, MapPin, Phone, Mail, Globe } from "lucide-react";
+import { ArrowRight, MapPin, Phone, Mail } from "lucide-react";
 
 // Inline SVG brand icons — not available in this version of lucide-react
 const LinkedInIcon = () => (

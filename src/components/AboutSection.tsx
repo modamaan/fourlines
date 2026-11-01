@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, Truck, Database, Package, Settings, Map } from "lucide-react";
+import { ArrowRight, Truck, Database, Package, Settings } from "lucide-react";
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -68,7 +68,7 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full overflow-hidden flex flex-col font-tertiary z-10 shadow-[0_-20px_50px_rgba(0,0,0,0.7)] bg-gradient-to-br from-[#0c4078] via-[#062244] to-[#020b16]">
+    <section id="about" ref={sectionRef} className="relative w-full overflow-hidden flex flex-col font-tertiary z-10 shadow-[0_-20px_50px_rgba(0,0,0,0.7)] bg-gradient-to-br from-[#0c4078] via-[#062244] to-[#020b16]">
 
       {/* TOP BLOCK */}
       <div className="flex flex-col lg:flex-row w-full lg:min-h-[600px] xl:min-h-[700px] relative">
@@ -119,7 +119,7 @@ export default function AboutSection() {
             </h2>
 
             <p className="font-tertiary text-gray-200 text-sm md:text-[15px] leading-relaxed font-light">
-              At Four Lines Industries, we don't just build storage and transport solutions—we build trust, reliability, and innovation. Every tank, trailer, and modular skid we create is a testament to our skill, dedication, and teamwork.
+              At Four Lines Industries, we don&apos;t just build storage and transport solutions—we build trust, reliability, and innovation. Every tank, trailer, and modular skid we create is a testament to our skill, dedication, and teamwork.
             </p>
 
             <button className="flex items-center gap-4 font-tertiary text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase hover:text-blue-300 transition-colors group mt-6">
